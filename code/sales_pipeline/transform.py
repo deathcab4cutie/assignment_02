@@ -228,7 +228,18 @@ def summarize_by_day(cleaned_data: list[dict]) -> list[dict]:
       twice under two spellings. Do still guard the "first time I have seen this
       date" case, or the first row of each day has nothing to add itself to.
     """
-    
+    totals = {}
+    for row in cleaned_data:
+        date = row["date"]
+        if date not in totals:
+            totals[date] = {"date": date, "units_sold": 0, "revenue": 0.0}
+        totals[date]["units_sold"] += row["qty"]
+        totals[date]["revenue"] += row["total_revenue"]
+
+    return sorted(
+        totals.values(),
+        key=lambda entry: entry["date"]
+    )
 
 
 def find_top_entry(summary: list[dict], field: str = "revenue") -> dict:

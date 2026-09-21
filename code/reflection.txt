@@ -4,3 +4,28 @@ See reflection.md for what makes a good reflection — be specific, use the
 terminology from this assignment (package, module, ETL, coercion, public API,
 relative import, accumulator, group by, unit vs. integration test), and make it
 actionable.
+
+This assignment helped me gain a better grasp on function scope. At first, I 
+assummed that the try/except in clean_currency would protect clean_quantity, 
+since they would be ran on the same row. I was able to figure out that the 
+guard only applies to the cell currently executing, so each function performing
+a coercion needs its own guard. I was also confused with sorting direction when
+constructing the accumulator functions summarize_by_day and summarize_by_item, 
+but I realized that sorted() works ascending-only; reverse=True flips the whole 
+key while negating flips one field, which is why the item sort function needs
+-entry["revenue"] but the day sort does not.
+
+I learned about the purpose of a public API. I like how it was described as a 
+set of promises; once this package is published to the user, it becomes a set 
+that I need to continue to support. The ETL logic made the function super easy 
+to work through, since it separates the "concerns"; extract.py hands data 
+along without changing it, transform.py does arithmetic without printing, and
+display.py handles just the formatting. This made the code easy to edit, since
+the module is "mutable" and can be edited without ruining the code already in
+place. For example, adding the functions summarize_by_item and find_top_entry 
+for main_finance_report.py didn't affect main_finance_report.py.
+
+Overall, the assignment helped me practice a lot of common Python syntax, like
+formatting f-strings and figuring out padded alignment for the output in all 
+three reports. It also helped me practice debugging, since I was slow with 
+checking the location and source of test failures.

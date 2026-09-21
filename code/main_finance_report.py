@@ -19,9 +19,6 @@ Before running:  pip install -r requirements.txt
 
 import sys
 
-# 1. Extract — get the raw data out of the source system.
-#    TODO: call get_raw_sales_data(seed) and store the result in `raw_data`.
-
 from sales_pipeline import (
     get_raw_sales_data,
     clean_sales_data,
